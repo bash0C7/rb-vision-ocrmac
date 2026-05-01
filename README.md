@@ -48,7 +48,7 @@ To run only the build step: `bundle exec rake compile`.
 
 ## Acknowledgments
 
-Huge thanks to [@sussan0416](https://github.com/sussan0416) for the Tram LT ["RubyからSwiftを呼ぶ" (2026-04-25)](https://www.docswell.com/s/sussan0416/K7NG3W-2026-04-25-Tram-LT). Hearing that talk is what made the Ruby × Swift combination feel actually within reach — without it this gem would not exist. The framework that this binding sits on top of, [swift_gem](https://github.com/bash0C7/swift_gem), generalises the LT's Swift-side recipe (`@_cdecl` + `strdup` + a paired `*_free`) into a reusable scaffold; `rb-vision-ocrmac` is its first consumer, applied to Apple's Vision framework.
+Thanks to [@sussan0416](https://github.com/sussan0416) for ["RubyからSwiftを呼ぶ" (2026-04-25)](https://www.docswell.com/s/sussan0416/K7NG3W-2026-04-25-Tram-LT) at [Lightning Talks on Hakodate Tram, RubyKaigi 2026](https://smarthr.connpass.com/event/385269/), which opened up the Ruby × Swift combination for me. The Swift-side recipe (`@_cdecl` + `strdup` + paired `*_free`) is generalised in [swift_gem](https://github.com/bash0C7/swift_gem); this gem is its first consumer.
 
 ## License
 
