@@ -19,3 +19,4 @@ ext/**/*.bundle.dSYM/
 ext/**/mkmf.log
 lib/**/*.bundle
 lib/**/*.bundle.dSYM/
+/tmp/

@@ -2,6 +2,11 @@
 
 require "bundler/gem_tasks"
 require "rake/testtask"
+require "rake/extensiontask"
+
+Rake::ExtensionTask.new("vision_ocrmac") do |ext|
+  ext.lib_dir = "lib/vision_ocrmac"
+end
 
 Rake::TestTask.new(:test) do |t|
   t.libs << "test"
@@ -9,4 +14,5 @@ Rake::TestTask.new(:test) do |t|
   t.test_files = FileList["test/**/*_test.rb"]
 end
 
+task test: :compile
 task default: :test
