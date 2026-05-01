@@ -21,6 +21,20 @@ text = VisionOcrmac.recognize("path/to/image.png")
 puts text
 ```
 
+## CLI
+
+The gem ships two CLIs that target the same Vision request.
+
+```bash
+# Ruby CLI (installed with the gem)
+vision-ocrmac path/to/image.png
+```
+
+```bash
+# Pure Swift CLI (no Ruby runtime required)
+swift examples/vision_ocrmac.swift path/to/image.png
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then build the Swift extension and run tests:
