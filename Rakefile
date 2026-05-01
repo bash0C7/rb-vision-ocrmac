@@ -14,5 +14,14 @@ Rake::TestTask.new(:test) do |t|
   t.test_files = FileList["test/**/*_test.rb"]
 end
 
+desc "Start an IRB console with vision_ocrmac loaded"
+task console: :compile do
+  require "irb"
+  $LOAD_PATH.unshift File.expand_path("lib", __dir__)
+  require "vision_ocrmac"
+  ARGV.clear
+  IRB.start
+end
+
 task test: :compile
 task default: :test

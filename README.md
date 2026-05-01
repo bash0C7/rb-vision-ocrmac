@@ -21,28 +21,30 @@ text = VisionOcrmac.recognize("path/to/image.png")
 puts text
 ```
 
-## CLI
-
-The gem ships two CLIs that target the same Vision request.
+Or open an IRB console with the gem preloaded:
 
 ```bash
-# Ruby CLI (installed with the gem)
-vision-ocrmac path/to/image.png
+bundle exec rake console
 ```
 
+## Reference: pure Swift sample
+
+A self-contained Swift script lives at `examples/vision_ocrmac.swift` for sanity-checking Vision behavior without going through Ruby:
+
 ```bash
-# Pure Swift CLI (no Ruby runtime required)
 swift examples/vision_ocrmac.swift path/to/image.png
 ```
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then build the Swift extension and run tests:
-
 ```bash
-cd ext/vision_ocrmac && ruby extconf.rb && make && cd ../..
+bundle install
 bundle exec rake test
 ```
+
+`rake test` automatically compiles the Swift Package (`swift build -c release`) and links the C bridge into `lib/vision_ocrmac/vision_ocrmac.bundle` before running the spec, via `Rake::ExtensionTask`.
+
+To run only the build step: `bundle exec rake compile`.
 
 ## License
 
