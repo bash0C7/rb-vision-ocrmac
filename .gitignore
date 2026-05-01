@@ -15,4 +15,7 @@ ext/**/.build/
 ext/**/Makefile
 ext/**/*.o
 ext/**/*.bundle
+ext/**/*.bundle.dSYM/
 ext/**/mkmf.log
+lib/**/*.bundle
+lib/**/*.bundle.dSYM/
