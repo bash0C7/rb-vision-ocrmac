@@ -2,8 +2,10 @@ import Vision
 import AppKit
 import Foundation
 
+// Run with: swift example.swift <image-path>
+
 guard CommandLine.arguments.count >= 2 else {
-    FileHandle.standardError.write("usage: swift examples/vision_ocrmac.swift <image_path>\n".data(using: .utf8)!)
+    FileHandle.standardError.write("usage: swift example.swift <image-path>\n".data(using: .utf8)!)
     exit(1)
 }
 
