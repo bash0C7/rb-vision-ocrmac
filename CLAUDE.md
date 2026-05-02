@@ -26,7 +26,7 @@ ext/vision_ocrmac/vision_ocrmac.c   ← rb_define_singleton_method
   │
   │   vision_ocrmac_recognize(c_path)
   ▼
-ext/vision_ocrmac/Sources/VisionOcrmac/VisionOcrmacBridge.swift   ← @_cdecl
+ext/vision_ocrmac/Sources/VisionOcrmac/VisionOcrmacBridge.swift   ← @c (SE-0495)
   │
   │   performRecognize(path: String) → String
   ▼
@@ -42,7 +42,7 @@ ext/vision_ocrmac/Sources/VisionOcrmac/VisionOcrmac.swift   ← NSImage + VNReco
 |---|---|
 | `lib/vision_ocrmac.rb` | `require_relative "vision_ocrmac/vision_ocrmac"` to load the .bundle; host of `module VisionOcrmac` |
 | `ext/vision_ocrmac/vision_ocrmac.c` | `Init_vision_ocrmac` exposes `VisionOcrmac.recognize`; copies Swift-returned `char*` into a Ruby UTF-8 String via `rb_utf8_str_new_cstr`, then calls `vision_ocrmac_free` |
-| `VisionOcrmacBridge.swift` | C ABI export via `@_cdecl`. Calls `performRecognize` and returns a C string via `strdup` |
+| `VisionOcrmacBridge.swift` | C ABI export via `@c` (SE-0495). Calls `performRecognize` and returns a C string via `strdup` |
 | `VisionOcrmac.swift` | NSImage load → `VNImageRequestHandler.perform` → `VNRecognizedTextObservation.topCandidates(1)` → newline join. `DispatchSemaphore` enforces the 30s timeout |
 | `ext/vision_ocrmac/extconf.rb` | `SwiftGem::Mkmf.create_swift_makefile("vision_ocrmac/vision_ocrmac", package: "VisionOcrmac", source_dir: __dir__)` |
 | `examples/vision_ocrmac.swift` | Pure-Swift sample script: `swift examples/vision_ocrmac.swift <path>`. Ruby-free, kept as a Vision-behavior reference (not distributed as a CLI) |
@@ -86,7 +86,7 @@ Used as a Ruby library: callers invoke `VisionOcrmac.recognize(path) → String`
 
 - macOS 12+ (`Package.swift` declares `.macOS(.v12)`, required by Vision framework)
 - Apple Silicon (arm64-darwin) assumed. Intel Mac SPM build / rpath assumptions are not verified
-- Swift 6.0+ (`Package.swift`'s `swift-tools-version`)
+- Swift 6.3+ (`Package.swift`'s `swift-tools-version`; required for SE-0495 `@c`). Install via [swiftly](https://www.swift.org/install/macos/).
 - Ruby 3.2+, bundler 4.x, rake-compiler 1.2+
 - During development, `Gemfile` references swift_gem via `gem "swift_gem", path: "../swift_gem"` (interim until publish)
 - `Gemfile.lock` is library-style: not git-tracked (in `.gitignore`)
