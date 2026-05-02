@@ -1,5 +1,5 @@
 #include <ruby.h>
-#include "vision_ocrmac.h"
+#include "VisionOcrmac-Swift.h"
 
 static VALUE rb_vision_ocrmac_recognize(VALUE self, VALUE path) {
     const char *c_path = StringValueCStr(path);
