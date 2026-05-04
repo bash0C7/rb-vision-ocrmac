@@ -11,4 +11,12 @@ class VisionOcrmacRecognizeTest < Test::Unit::TestCase
     assert_false(text.strip.empty?, "Expected non-empty OCR output, got: #{text.inspect}")
     assert(text.include?("rb-vision-ocrmac"), "Expected 'rb-vision-ocrmac' in OCR output, got: #{text.inspect}")
   end
+
+  test "recognize raises Errno::ENOENT for a missing image path" do
+    missing = "/tmp/rb-vision-ocrmac-does-not-exist-#{Process.pid}.png"
+    assert_false(File.exist?(missing))
+    assert_raise(Errno::ENOENT) do
+      VisionOcrmac.recognize(missing)
+    end
+  end
 end
