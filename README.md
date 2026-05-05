@@ -37,11 +37,13 @@ bundle exec rake console
 
 ## Reference: pure Swift sample
 
-A self-contained Swift script lives at `examples/vision_ocrmac.swift` for sanity-checking Vision behavior without going through Ruby:
+A self-contained Swift script lives at `example.swift` (repo root) for sanity-checking Vision behavior without going through Ruby:
 
 ```bash
-swift examples/vision_ocrmac.swift path/to/image.png
+xcrun swift example.swift path/to/image.png
 ```
+
+Use `xcrun swift` (Xcode toolchain), not bare `swift` from swiftly — swiftly 6.3's interpret mode does not JIT-link Apple system frameworks (Vision, AppKit) and fails at startup with symbol-resolution errors. Xcode's swift uses dyld and works as-is.
 
 ## Development
 

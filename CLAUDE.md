@@ -46,7 +46,7 @@ ext/vision_ocrmac/Sources/VisionOcrmac/VisionOcrmac.swift   ← NSImage + VNReco
 | `VisionOcrmac.swift` | NSImage load → `VNImageRequestHandler.perform` → `VNRecognizedTextObservation.topCandidates(1)` → newline join. `DispatchSemaphore` enforces the 30s timeout |
 | `ext/vision_ocrmac/extconf.rb` | `SwiftGem::Mkmf.create_swift_makefile("vision_ocrmac/vision_ocrmac", package: "VisionOcrmac", source_dir: __dir__)` |
 | `example.rb` | Ruby sample script: `bundle exec ruby example.rb [<path>]`. Calls `VisionOcrmac.recognize` and prints the result |
-| `example.swift` | Pure-Swift sample script: `swift example.swift <path>`. Ruby-free, kept as a Vision-behavior reference (not distributed as a CLI) |
+| `example.swift` | Pure-Swift sample script: `xcrun swift example.swift <path>`. Ruby-free, kept as a Vision-behavior reference (not distributed as a CLI). Must use `xcrun swift` (Xcode toolchain) — swiftly 6.3's interpret mode cannot JIT-link Apple system frameworks |
 | `Rakefile` | `Rake::ExtensionTask("vision_ocrmac")` + `task test: :compile` for one-shot build-and-test. `task console: :compile` for IRB (`bundle exec rake console`) |
 
 ## Build flow

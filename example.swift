@@ -2,10 +2,15 @@ import Vision
 import AppKit
 import Foundation
 
-// Run with: swift example.swift <image-path>
+// Run with: xcrun swift example.swift <image-path>
+//
+// Note: use 'xcrun swift' (Xcode toolchain), not bare 'swift' (swiftly).
+// swiftly 6.3's swift interpret mode fails to JIT-link Apple system
+// frameworks (Vision, AppKit), so symbol resolution errors at startup.
+// Xcode's swift uses dyld for framework linking and works as expected.
 
 guard CommandLine.arguments.count >= 2 else {
-    FileHandle.standardError.write("usage: swift example.swift <image-path>\n".data(using: .utf8)!)
+    FileHandle.standardError.write("usage: xcrun swift example.swift <image-path>\n".data(using: .utf8)!)
     exit(1)
 }
 
