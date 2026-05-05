@@ -35,6 +35,21 @@ Or open an IRB console with the gem preloaded:
 bundle exec rake console
 ```
 
+## Preconditions: caller is responsible for image preprocessing
+
+This gem is a **thin pass-through wrapper** around `VNRecognizeTextRequest`. It does no image preprocessing — no rotation, scaling, orientation correction, page splitting, or layout normalization. If Vision can't read the image as-is, `recognize` returns `""`.
+
+Vision has known weak spots that show up in real workloads:
+
+- **Vertical Japanese book pages with densely-packed text columns** — Vision often fails to detect any text regions and returns 0 observations (empty output). Vertical writing is supported in principle, but the region segmentation gives up on book-page layouts where many narrow columns sit side-by-side. Workaround at the caller: rotate the page 90° so columns become rows, or upscale low-resolution scans (≲ 1000px on the long side) before passing the path in.
+- **Low-resolution scans** — sub-1000px images sometimes return zero observations even for clean horizontal text. Upscale before calling.
+- **Multi-page PDFs / multi-region images** — split into per-page / per-region images upstream; this gem takes one image at a time.
+- **Skew, heavy noise, faint text** — deskew / denoise / contrast-boost in the caller.
+
+**Detection of these cases is also the caller's job.** `recognize` returns `""` for both "Vision succeeded but no text found" and "Vision could not segment the image" — the gem does not distinguish them. Callers that need to retry with preprocessing should branch on `text.empty?` and apply their own fallback chain (rotate → retry → upscale → retry → give up).
+
+A missing path is the one failure mode this gem **does** surface as an exception (`Errno::ENOENT`), since that is unambiguously bad input and never a legitimate empty result.
+
 ## Reference: pure Swift sample
 
 A self-contained Swift script lives at `example.swift` (repo root) for sanity-checking Vision behavior without going through Ruby:
