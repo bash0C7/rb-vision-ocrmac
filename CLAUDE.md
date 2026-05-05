@@ -89,6 +89,7 @@ Used as a Ruby library: callers invoke `VisionOcrmac.recognize(path) → String`
 - macOS 12+ (`Package.swift` declares `.macOS(.v12)`, required by Vision framework)
 - Apple Silicon (arm64-darwin) assumed. Intel Mac SPM build / rpath assumptions are not verified
 - Swift 6.3+ (`Package.swift`'s `swift-tools-version`; required for SE-0495 `@c`). Install via [swiftly](https://www.swift.org/install/macos/).
+- Xcode Command Line Tools — only required for running the standalone `example.swift` via `xcrun swift`. Library build (`bundle exec rake compile`) goes through swiftly's swift only. swiftly's 6.3 swift binary has broken Apple-framework JIT linkage in interpret mode (verified: `SDKROOT=`, `-F`, `-Xlinker -framework`, `-sdk` all fail), so the sample script borrows CLT's older swift (6.2.4) which has working dyld-based framework resolution. example.swift does not use SE-0495 `@c`, so 6.2.4 suffices. Install with `xcode-select --install`.
 - Ruby 3.2+, bundler 4.x, rake-compiler 1.2+
 - During development, `Gemfile` references swift_gem via `gem "swift_gem", path: "../swift_gem"` (interim until publish)
 - `Gemfile.lock` is library-style: not git-tracked (in `.gitignore`)

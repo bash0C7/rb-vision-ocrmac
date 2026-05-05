@@ -5,10 +5,11 @@ Ruby binding for Apple Vision OCR (`VNRecognizeTextRequest`) on macOS / Apple Si
 ## Requirements
 
 - macOS 12+, Apple Silicon
-- Swift 6.3+ (SE-0495 `@c` attribute)
+- Swift 6.3+ (SE-0495 `@c` attribute) for the library build
 - Ruby 3.2+, Bundler 4.x
+- **Xcode Command Line Tools** if you want to run `example.swift` (only). The pure-Swift sample script must run under `xcrun swift`; swiftly's 6.3 swift binary cannot JIT-link Apple system frameworks (Vision, AppKit) in interpret mode. The library build itself does not need Xcode CLT.
 
-Install Swift via [swiftly](https://www.swift.org/install/macos/) — Xcode is not required: `brew install swiftly && swiftly install 6.3 && swiftly use 6.3`.
+Install Swift via [swiftly](https://www.swift.org/install/macos/): `brew install swiftly && swiftly install 6.3 && swiftly use 6.3`. Install CLT (only if you want to run the sample): `xcode-select --install`.
 
 ## Installation
 
