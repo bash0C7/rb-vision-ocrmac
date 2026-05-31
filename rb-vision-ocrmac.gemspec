@@ -29,5 +29,4 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
   spec.extensions = ["ext/vision_ocrmac/extconf.rb"]
 
-  spec.add_dependency "swift_gem"
 end
